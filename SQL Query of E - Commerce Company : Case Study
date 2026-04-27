@@ -1,0 +1,112 @@
+          ----------> SQL Query of E-Commerce Company : Case Study <-------------
+
+# ---> Creat Data Base 
+
+Create Database E_commerce;
+use E_commerce;
+show tables;
+
+## -----> Change a column name <------
+select * from customers;
+alter table customers
+change ï»¿customer_id customer_id int;
+
+select * from orders;
+alter table orders 
+change ï»¿order_id order_id int;
+
+select * from products;
+alter table products
+change ï»¿product_id product_id int;
+
+select * from 
+orders details;
+
+# -----> Customer Insights by Total Spending 
+select 
+c.customer_id,
+o.order_id,
+c.name,
+sum(o.total_amount) as Total_Amount
+from orders as o
+join customers as c 
+on o.customer_id = c.customer_id
+group by customer_id, o.order_id,
+c.name, Total_Amount
+order by total_amount desc;
+
+## -----> Repeated Customers 
+select 
+customer_id,
+count(order_id) as Order_Count
+ from orders
+ group by customer_id
+ having order_count > 1
+ order by Order_count desc;
+ 
+ select * from Orders_Details;
+ alter table Orders_Details 
+ change ï»¿order_id order_id int;
+ 
+ # ---> Best Selling Products / Highest Demand 
+ select 
+ p.product_id,
+ p.name,
+ sum(od.quantity) as Sold_Quantity
+ from Orders_Details as od
+ join products as p
+ on od.product_id = p.product_id
+ group by product_id, name
+ order by Sold_Quantity desc;
+ 
+ # ---> Cheap Selling Products / Low Demand 
+ select 
+ p.product_id,
+ p.name,
+ sum(od.quantity) as Sold_Quantity
+ from products as p
+ join orders_Details as od
+ on p.product_id = od.product_id
+ group by p.product_id, name
+ order by Sold_Quantity asc;
+ 
+ # -----> Revenue per Products 
+ select 
+ p.product_id,
+ p.name,
+ sum(od.quantity * od.price_per_unit) as Total_Price
+ from Orders_details as od
+ join products as p
+ on od.product_id = p.product_id
+ group by p.product_id,
+ p.name
+ order by Total_Price desc;
+ 
+ 
+ ## ------> Month wise Sales Trend Analysis 
+ SELECT 
+ p.name,
+    DATE_FORMAT(order_date, '%Y-%m') AS month,
+    SUM(total_amount) AS total_sales
+FROM Orders as o
+join orders_details as od
+on o.order_id = od.order_id
+join products as p
+on od.product_id = p.product_id 
+GROUP BY month, p.name
+ORDER BY month;
+
+## ----> Daily Sales Analysis 
+select 
+order_date,
+sum(total_amount) as Daily_Sale
+ from orders
+ group by order_date
+ order by order_date;
+ 
+ 
+ 
+ 
+
+
+
