@@ -1,0 +1,41 @@
+ Data Model
+
+The dataset consists of 4 main tables:
+
+ 1. Customers
+Contains customer demographic and location data.
+
+| Column | Description |
+|--------|------------|
+| customer_id | Unique ID for each customer |
+| name | Customer name |
+| location | City/Region |
+
+ 2. Orders
+Represents each purchase transaction.
+
+| Column | Description |
+|--------|------------|
+| order_id | Unique order ID |
+| customer_id | Linked to Customers |
+| order_date | Date of purchase |
+| total_amount | Total order value |
+
+ 3. Products
+Stores product-related information.
+
+| Column | Description |
+|--------|------------|
+| product_id | Unique product ID |
+| name | Product name |
+| price | Product price |
+
+ 4. Orders_Details
+Contains line-level transaction data.
+
+| Column | Description |
+|--------|------------|
+| order_id | Linked to Orders |
+| product_id | Linked to Products |
+| quantity | Units sold |
+| price_per_unit | Price per unit |
